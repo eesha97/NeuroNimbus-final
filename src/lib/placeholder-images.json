@@ -1,0 +1,52 @@
+{
+  "placeholderImages": [
+    {
+      "id": "1",
+      "description": "Family gathering in a park",
+      "imageUrl": "https://images.unsplash.com/photo-1663579169532-60a3d830464a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxmYW1pbHklMjBwYXJrfGVufDB8fHx8MTc2NjYzNTY2OHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "family park"
+    },
+    {
+      "id": "2",
+      "description": "Birthday party with cake",
+      "imageUrl": "https://images.unsplash.com/photo-1606983340126-99ab4feaa64a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxiaXJ0aGRheSUyMGNha2V8ZW58MHx8fHwxNzY2NjQ5NTQ3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "birthday cake"
+    },
+    {
+      "id": "3",
+      "description": "Beach vacation sunset",
+      "imageUrl": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxiZWFjaCUyMHN1bnNldHxlbnwwfHx8fDE3NjY1Njk0NjJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "beach sunset"
+    },
+    {
+      "id": "4",
+      "description": "Grandparents smiling",
+      "imageUrl": "https://images.unsplash.com/photo-1694202207190-a2d3a58c57f6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxncmFuZHBhcmVudHMlMjBwb3J0cmFpdHxlbnwwfHx8fDE3NjY2NDk1NDd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "grandparents portrait"
+    },
+    {
+      "id": "5",
+      "description": "A friendly dog",
+      "imageUrl": "https://images.unsplash.com/photo-1531842477197-54acf89bff98?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxkb2clMjBwb3J0cmFpdHxlbnwwfHx8fDE3NjY2NDk1NDh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "dog portrait"
+    },
+    {
+      "id": "6",
+      "description": "A wedding ceremony",
+      "imageUrl": "https://images.unsplash.com/photo-1507915977619-6ccfe8003ae6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHx3ZWRkaW5nJTIwY2VyZW1vbnl8ZW58MHx8fHwxNzY2NjQwODIzfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "wedding ceremony"
+    },
+    {
+      "id": "7",
+      "description": "A holiday dinner",
+      "imageUrl": "https://images.unsplash.com/photo-1764270413241-8baf40a97de9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxob2xpZGF5JTIwZGlubmVyfGVufDB8fHx8MTc2NjY0OTU0N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "holiday dinner"
+    },
+    {
+      "id": "8",
+      "description": "A young child playing",
+      "imageUrl": "https://images.unsplash.com/photo-1532330393533-443990a51d10?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxjaGlsZCUyMHBsYXlpbmd8ZW58MHx8fHwxNzY2NjI5MzM5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "child playing"
+    }
+  ]
+}

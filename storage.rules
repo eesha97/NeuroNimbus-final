@@ -1,0 +1,26 @@
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+  
+    function getUserData(uid) {
+      return get(/databases/$(database)/documents/users/$(uid)).data;
+    }
+
+    // Path for all patient-related files (memories, people thumbnails, etc.)
+    match /patients/{patientUid}/{allPaths=**} {
+      // Patients can only read their own files.
+      allow read: if request.auth.uid == patientUid && getUserData(request.auth.uid).role == 'patient';
+      
+      // Caregivers can read and write to their assigned patient's folder.
+      allow read, write: if request.auth.uid != null 
+                        && getUserData(request.auth.uid).role == 'caregiver' 
+                        && getUserData(request.auth.uid).patientUid == patientUid;
+    }
+    
+    // Default deny all other access.
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

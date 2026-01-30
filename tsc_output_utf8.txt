@@ -1,0 +1,8 @@
+﻿.next/types/app/(app)/events/[eventId]/page.ts(34,29): error TS2344: Type '{ params: { eventId: string; }; }' does not satisfy the constraint 'PageProps'.
+  Types of property 'params' are incompatible.
+    Type '{ eventId: string; }' is missing the following properties from type 'Promise<any>': then, catch, finally, [Symbol.toStringTag]
+.next/types/app/(app)/people/[peopleId]/page.ts(34,29): error TS2344: Type '{ params: { peopleId: string; }; }' does not satisfy the constraint 'PageProps'.
+  Types of property 'params' are incompatible.
+    Type '{ peopleId: string; }' is missing the following properties from type 'Promise<any>': then, catch, finally, [Symbol.toStringTag]
+src/ai/flows/summarize-notes.ts(13,39): error TS2307: Cannot find module '@/services/extractive-summarization' or its corresponding type declarations.
+src/app/(app)/events/[eventId]/page.tsx(2,28): error TS2307: Cannot find module '../memories/components/memory-card' or its corresponding type declarations.
