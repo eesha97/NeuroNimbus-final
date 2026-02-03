@@ -73,7 +73,8 @@ export function MemoryCard({ memory, onClick }: MemoryCardProps) {
       {/* FOOTER */}
       <CardFooter className="flex-col items-start gap-4 p-4 pt-0">
         {/* PEOPLE */}
-        {memory.people?.length > 0 && (
+        {/* PEOPLE - HIDDEN AS REQUESTED */}
+        {/* {memory.people?.length > 0 && (
           <div className="flex -space-x-2 overflow-hidden">
             {memory.people.map((person) => (
               <Avatar
@@ -90,7 +91,7 @@ export function MemoryCard({ memory, onClick }: MemoryCardProps) {
               </Avatar>
             ))}
           </div>
-        )}
+        )} */}
 
         {/* TAGS */}
         <div className="flex flex-wrap gap-2">

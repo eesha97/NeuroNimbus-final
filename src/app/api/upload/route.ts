@@ -34,6 +34,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json({
       url: uploadResult.secure_url,
+      publicId: uploadResult.public_id,
     });
   } catch (error) {
     console.error("Upload error:", error);

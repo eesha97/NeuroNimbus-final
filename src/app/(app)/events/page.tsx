@@ -14,7 +14,7 @@ import { useMemo } from 'react';
 const PUBLIC_PATIENT_ID = 'patient123';
 
 export default function EventsPage() {
-  const { profile } = useUser();
+  const { profile, loading: userLoading } = useUser();
   const firestore = useFirestore();
   const patientUid = profile?.patientUid || PUBLIC_PATIENT_ID;
 
@@ -22,24 +22,33 @@ export default function EventsPage() {
     if (!firestore || !patientUid) return null;
     return query(
       collection(firestore, 'events'),
-      where('patientUid', '==', patientUid),
-      orderBy('date', 'desc')
+      where('patientUid', '==', patientUid)
     );
   }, [firestore, patientUid]);
 
-  const { data: events, loading } = useCollection<Event>(eventsQuery as any);
+  const { data: rawEvents, loading } = useCollection<Event>(eventsQuery as any);
+
+  // Client-side sort
+  const events = useMemo(() => {
+    if (!rawEvents) return [];
+    return [...rawEvents].sort((a, b) => new Date(b.date || 0).getTime() - new Date(a.date || 0).getTime());
+  }, [rawEvents]);
 
   return (
     <div className="flex flex-col gap-6">
       <header className="flex items-center justify-between">
         <h1 className="text-3xl font-bold tracking-tight font-headline">Events</h1>
-        <Button>
-          <Plus className="-ml-1 mr-2 h-4 w-4" />
-          Create Event
-        </Button>
+        {profile?.role !== 'patient' && (
+          <Button asChild>
+            <Link href="/events/new">
+              <Plus className="-ml-1 mr-2 h-4 w-4" />
+              Create Event
+            </Link>
+          </Button>
+        )}
       </header>
 
-      {loading ? (
+      {(loading || userLoading) ? (
         <div className="flex h-64 items-center justify-center">
           <LoaderCircle className="h-8 w-8 animate-spin" />
         </div>

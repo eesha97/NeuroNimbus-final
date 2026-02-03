@@ -15,6 +15,7 @@ export interface Memory {
   ownerUid: string; // caregiver UID
   patientUid: string;
   photoUrl: string;
+  publicId?: string; // Cloudinary public_id for deletion
   photoHint: string;
   caption: string;
   createdAt: number; // timestamp
@@ -50,11 +51,15 @@ export interface Event {
   date?: number; // timestamp
   createdAt: number; // timestamp
   memoryCount: number;
+  description?: string;
+  images?: { url: string; publicId: string }[];
+  imageUrls?: string[]; // Deprecated, kept for backward compatibility if needed
   coverPhotoUrl?: string;
   coverPhotoHint?: string;
 }
 
 export interface Note {
+  id?: string;
   text: string;
   createdAt: number; // timestamp
 }

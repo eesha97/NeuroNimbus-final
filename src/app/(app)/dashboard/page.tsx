@@ -20,6 +20,13 @@ export default function DashboardPage() {
     if (!user) {
         return null;
     }
+    const displayedNavItems = navItems.filter(item => {
+        if (profile?.role === 'patient') {
+            return item.href !== '/upload';
+        }
+        return true;
+    });
+
     return (
         <div className="flex flex-col gap-8">
             <header>
@@ -35,7 +42,7 @@ export default function DashboardPage() {
             </header>
 
             <section className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                {navItems.map(item => (
+                {displayedNavItems.map(item => (
                     <Link href={item.href} key={item.href}>
                         <Card className="group flex h-full flex-col justify-between transition-all hover:shadow-xl hover:-translate-y-1">
                             <CardHeader>

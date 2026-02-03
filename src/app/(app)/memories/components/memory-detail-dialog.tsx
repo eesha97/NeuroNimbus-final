@@ -44,6 +44,14 @@ export function MemoryDetailDialog({ memory, isOpen, onClose }: MemoryDetailDial
 
         setIsDeleting(true);
         try {
+            // Delete from Cloudinary if publicId exists
+            if (memory.publicId) {
+                await fetch('/api/delete-image', {
+                    method: 'POST',
+                    body: JSON.stringify({ publicId: memory.publicId }),
+                });
+            }
+
             await deleteDoc(doc(firestore, 'memories', memory.id));
             toast({ title: 'Memory Deleted', description: 'The memory has been removed.' });
             onClose();

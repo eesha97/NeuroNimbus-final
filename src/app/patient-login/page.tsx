@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useFirestore, useAuth } from '@/firebase';
 import { doc, getDoc } from 'firebase/firestore';
-import { signOut } from 'firebase/auth';
+import { signInAnonymously } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
 import { Logo } from '@/components/logo';
 import { LoaderCircle, User } from 'lucide-react';
@@ -18,19 +18,19 @@ export default function PatientLoginPage() {
     const [error, setError] = useState('');
     const firestore = useFirestore();
     const router = useRouter();
-    const auth = useAuth(); // Import useAuth hook
+    const auth = useAuth();
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
         setError('');
 
-        if (!firestore || !patientId.trim()) return;
+        if (!firestore || !patientId.trim() || !auth) return;
 
         setLoading(true);
 
         try {
-            // Direct lookup by Patient ID
             const targetId = patientId.trim();
+            // 1. Verify ID exists in directory (public)
             const docRef = doc(firestore, 'patient_directory', targetId);
             const docSnap = await getDoc(docRef);
 
@@ -42,27 +42,19 @@ export default function PatientLoginPage() {
 
             const patientData = docSnap.data();
 
+            // 2. Sign In Anonymously to get a valid Firebase Token
+            // This ensures we can read protected collections like Events/Notes
+            await signInAnonymously(auth);
 
-
-            // Ensure no conflicting firebase session exists
-            if (auth) {
-                await signOut(auth);
-            }
-
-            // Persist to localStorage
+            // 3. Persist ID to local storage so useUser can find the profile
             localStorage.setItem('neuro_patient_uid', targetId);
             localStorage.setItem('neuro_patient_name', patientData.displayName);
 
-            // Redirect to dashboard
             router.push('/dashboard');
 
         } catch (err: any) {
             console.error(err);
-            if (err.code === 'permission-denied') {
-                setError('Permission denied. Please ensure you are using a valid Patient ID.');
-            } else {
-                setError('An error occurred. Please try again.');
-            }
+            setError('Login failed. Please try again.');
             setLoading(false);
         }
     };

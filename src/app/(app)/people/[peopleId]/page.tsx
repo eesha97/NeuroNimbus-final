@@ -11,15 +11,19 @@ import { useDoc, useCollection, useFirestore } from '@/firebase';
 import { doc, collection, query, where, orderBy, type Query } from 'firebase/firestore';
 import type { Memory, Person } from '@/lib/types';
 import { notFound } from 'next/navigation';
+import { MemoryDetailDialog } from '@/app/(app)/memories/components/memory-detail-dialog';
+import { useState } from 'react';
 
 export default function PersonDetailPage({ params }: { params: Promise<{ peopleId: string }> }) {
   const { peopleId } = use(params);
   const firestore = useFirestore();
 
   // Fetch Person Document
-  const { data: person, loading: personLoading } = useDoc<Person>(
-    firestore ? (doc(firestore, 'people', peopleId) as any) : null
-  );
+  const personDocRef = useMemo(() => {
+    return firestore ? (doc(firestore, 'people', peopleId) as any) : null;
+  }, [firestore, peopleId]);
+
+  const { data: person, loading: personLoading } = useDoc<Person>(personDocRef);
 
   // Fetch Memories for this Person
   const memoriesQuery = useMemo(() => {
@@ -58,6 +62,7 @@ export default function PersonDetailPage({ params }: { params: Promise<{ peopleI
 // Separated content component to handle memory fetching once person is known
 function PersonDetailContent({ person, peopleId }: { person: Person, peopleId: string }) {
   const firestore = useFirestore();
+  const [selectedMemory, setSelectedMemory] = useState<Memory | null>(null);
 
   const memsQuery = useMemo(() => {
     if (!firestore) return null;
@@ -73,7 +78,7 @@ function PersonDetailContent({ person, peopleId }: { person: Person, peopleId: s
 
   const personMemories = useMemo(() => {
     if (!allMemories) return [];
-    return allMemories.filter(m => m.people.some(p => p.id === peopleId));
+    return allMemories.filter(m => m.people?.some(p => p.id === peopleId));
   }, [allMemories, peopleId]);
 
   return (
@@ -108,12 +113,24 @@ function PersonDetailContent({ person, peopleId }: { person: Person, peopleId: s
           {memsLoading ? (
             <LoaderCircle className="animate-spin" />
           ) : personMemories.length > 0 ? (
-            personMemories.map((memory) => <MemoryCard key={memory.id} memory={memory} />)
+            personMemories.map((memory) => (
+              <MemoryCard
+                key={memory.id}
+                memory={memory}
+                onClick={() => setSelectedMemory(memory)}
+              />
+            ))
           ) : (
             <p className="text-muted-foreground col-span-full">No memories found for {person.displayName}.</p>
           )}
         </div>
       </section>
+
+      <MemoryDetailDialog
+        memory={selectedMemory}
+        isOpen={!!selectedMemory}
+        onClose={() => setSelectedMemory(null)}
+      />
     </div>
   );
 }

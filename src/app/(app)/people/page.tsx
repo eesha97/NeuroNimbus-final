@@ -15,9 +15,12 @@ import { useMemo } from 'react';
 const PUBLIC_PATIENT_ID = 'patient123';
 
 export default function PeoplePage() {
-  const { profile } = useUser();
+  const { profile, loading: userLoading } = useUser();
   const firestore = useFirestore();
-  const patientUid = profile?.patientUid || PUBLIC_PATIENT_ID;
+
+  // Wait for profile to load before falling back (or better, show loading)
+  // If we are loading user, we shouldn't query yet.
+  const patientUid = profile?.patientUid;
 
   const peopleQuery = useMemo(() => {
     if (!firestore || !patientUid) return null;
@@ -39,7 +42,7 @@ export default function PeoplePage() {
         </Button>
       </header>
 
-      {loading ? (
+      {(loading || userLoading) ? (
         <div className="flex h-64 items-center justify-center">
           <LoaderCircle className="h-8 w-8 animate-spin" />
         </div>
